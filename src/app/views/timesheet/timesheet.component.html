@@ -8,8 +8,48 @@
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
-  </mwl-calendar-month-view> -->
-<app-dashboard>
-  <mwl-calendar-month-view [viewDate]="viewDate">
   </mwl-calendar-month-view>
+
+ <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-day-view>
+
+-->
+
+
+
+<app-dashboard>
+  <div class="calendar-header">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <div class="calendar-actions">
+      <a class="block" [ngClass]="{'accent': view === CalendarView.Month}" (click)="view = CalendarView.Month">Month</a>
+      <a class="block" [ngClass]="{'accent': view === CalendarView.Week}" (click)="view = CalendarView.Week">Week</a>
+      <a class="block" [ngClass]="{'accent': view === CalendarView.Day}" (click)="view = CalendarView.Day">Agenda</a>
+    </div>
+  </div>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate">
+    </mwl-calendar-day-view>
+
+  </div>
+
 </app-dashboard>

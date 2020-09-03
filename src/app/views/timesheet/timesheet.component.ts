@@ -18,6 +18,8 @@ export class TimesheetComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    console.log(this.view);
   }
 
 }

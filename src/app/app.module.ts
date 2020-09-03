@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './views/home/home.component';
 import { environment } from 'src/environments/environment';
 import { TimesheetComponent } from './views/timesheet/timesheet.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { TimesheetComponent } from './views/timesheet/timesheet.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    CommonModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
