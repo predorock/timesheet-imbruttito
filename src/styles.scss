@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
+:root {
+  --app-background: coral;
+  --app-black: #343434;
+  --main-padding: 15px;
+}
+
+body {
+  font-family: 'Grandstander', cursive;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: inline-block;
+}

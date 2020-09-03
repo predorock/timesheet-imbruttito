@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 4px;
+  background: var(--app-background);
+  border-bottom: 4px solid var(--app-black);
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 1;
+  overflow-x: auto;
+}

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "spx-salamander": {
+      "hosting": {
+        "salamander": [
+          "spx-salamander"
+        ]
+      }
+    }
+  }
+}
