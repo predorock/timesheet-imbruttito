@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './views/home/home.component';
 import { TimesheetComponent } from './views/timesheet/timesheet.component';
+import { DashboardComponent } from './views/layout/dashboard/dashboard.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 const routes: Routes = [
   {
     path: '',
-    children:[
+    component: DashboardComponent,
+    children: [
       {
         path: '',
         component: HomeComponent
@@ -14,6 +17,10 @@ const routes: Routes = [
       {
         path: 'timesheet',
         component: TimesheetComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ]
   },

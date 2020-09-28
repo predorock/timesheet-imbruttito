@@ -1,16 +1,19 @@
 <header>
-  <div class="block logo">
-      <a class="button" routerLink="">Project Salamander</a>
+  <div class="logo" *ngIf="(authService.user$ | async) as user">
+    <img [src]="user.photoURL"/>
+  </div>
+  <div class="block" *ngIf="!(authService.user$ | async)">
+    <a class="button" routerLink="">Project Salamander</a>
   </div>
   <nav>
-      <a class="block button" routerLink="timesheet">
-          Timesheet
-      </a>
-      <a class="block button" href="/about">
-          About
-      </a>
-      <a class="block button" href="https://github.com/predorock/spx-salamander" target="_blank">
-          <span class="mobile-hidden">View Source on</span> GitHub
-      </a>
+    <a class="block button" routerLink="timesheet">
+      Timesheet
+    </a>
+    <a class="block button" (click)="logout()" *ngIf="(authService.user$ | async)">
+      Logout
+    </a>
+    <a class="block button" href="https://github.com/predorock/spx-salamander" target="_blank">
+      <span class="mobile-hidden">View Source on</span> GitHub
+    </a>
   </nav>
 </header>

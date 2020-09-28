@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "salamander"
+  "defaultProject": "salamander",
+  "cli": {
+    "analytics": "5b0604e0-ad3a-40da-9147-fc8b5a171dca"
+  }
 }

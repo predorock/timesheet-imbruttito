@@ -15,3 +15,28 @@ nav {
   flex-shrink: 1;
   overflow-x: auto;
 }
+
+.logo {
+  cursor: pointer;
+  img {
+    width: 50px;
+    border-radius: 25px;
+    border: 3px solid black;
+    &:after {
+      content: "";
+      display: block;
+      background: white;
+      border: 3px solid red;
+      border-radius: 25px;
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 0;
+      z-index: -2;
+      transition: transform .2s;
+    }
+  }
+
+}

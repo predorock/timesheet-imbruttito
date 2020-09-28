@@ -12,6 +12,8 @@ import { HomeComponent } from './views/home/home.component';
 import { environment } from 'src/environments/environment';
 import { TimesheetComponent } from './views/timesheet/timesheet.component';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { CommonModule } from '@angular/common';
     DashboardComponent,
     HeaderComponent,
     HomeComponent,
-    TimesheetComponent
+    TimesheetComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

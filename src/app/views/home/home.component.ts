@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.isLoggedIn$ = this.auth.user$.pipe(
+      map(u => !!u)
+    );
   }
 
 }
