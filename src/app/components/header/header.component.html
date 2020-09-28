@@ -1,19 +1,23 @@
 <header>
   <div class="logo" *ngIf="(authService.user$ | async) as user">
     <img [src]="user.photoURL"/>
+    <div class="logo-text">Welcome back <span class="logo-text-name">{{user.displayName}}</span></div>
   </div>
   <div class="block" *ngIf="!(authService.user$ | async)">
     <a class="button" routerLink="">Project Salamander</a>
   </div>
   <nav>
-    <a class="block button" routerLink="timesheet">
+    <a class="block button" routerLink="timesheet" *ngIf="(authService.user$ | async)">
       Timesheet
+    </a>
+    <a class="block button" routerLink="profile" *ngIf="(authService.user$ | async)">
+      Profile
     </a>
     <a class="block button" (click)="logout()" *ngIf="(authService.user$ | async)">
       Logout
     </a>
-    <a class="block button" href="https://github.com/predorock/spx-salamander" target="_blank">
+   <!--  <a class="block button" href="https://github.com/predorock/spx-salamander" target="_blank">
       <span class="mobile-hidden">View Source on</span> GitHub
-    </a>
+    </a> -->
   </nav>
 </header>

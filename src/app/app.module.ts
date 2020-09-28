@@ -14,6 +14,8 @@ import { TimesheetComponent } from './views/timesheet/timesheet.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FireFormDirective } from './directives/fire-form/fire-form.directive';
 
 
 @NgModule({
@@ -24,13 +26,16 @@ import { ProfileComponent } from './views/profile/profile.component';
     HomeComponent,
     TimesheetComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    FireFormDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

@@ -53,7 +53,7 @@ export class AuthService {
 
   private async updateUserData({uid, email, displayName, photoURL }: User): Promise<Partial<User>>  {
 
-    const userRef: AngularFirestoreDocument<IAppUser> = this.db.doc(`users/${uid}`);
+    const userRef: AngularFirestoreDocument<Partial<IAppUser>> = this.db.doc(`users/${uid}`);
     const data = {
       uid,
       email,

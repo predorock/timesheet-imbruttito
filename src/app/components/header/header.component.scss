@@ -17,6 +17,8 @@ nav {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   img {
     width: 50px;
@@ -36,6 +38,12 @@ nav {
       right: 0;
       z-index: -2;
       transition: transform .2s;
+    }
+  }
+  .logo-text {
+    margin-left: 5px;
+    .logo-text-name {
+      font-weight: bold;
     }
   }
 

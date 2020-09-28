@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounce } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  profileForm: FormGroup;
+  state: string;
+
+  constructor(
+    private fb: FormBuilder,
+    public auth: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      displayName: ['']
+    });
+  }
+
+  onChangeState(state: string): void {
+    console.log(state);
+    this.state = state;
   }
 
 }

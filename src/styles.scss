@@ -17,3 +17,17 @@ body {
 a {
   display: inline-block;
 }
+
+
+form {
+  .input {
+    label {
+      display: block;
+    }
+    display: inline-block;
+  }
+}
+
+fieldset {
+  padding: 20px;
+}

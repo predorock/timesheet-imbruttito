@@ -1,1 +1,50 @@
-<p>profile works!</p>
+<div class="profile-container" *ngIf="(auth.user$) | async as user">
+
+  <div *ngIf="state === 'synced'" class="notification is-success">
+    Form is synced with Firestore
+  </div>
+
+  <div *ngIf="state === 'modified'" class="notification is-warning">
+    Form has unsaved changes
+  </div>
+  <!-- Getting an ERROR Error: ExpressionChangedAfterItHasBeenCheckedError -->
+  <!-- <div *ngIf="state === 'loading'" class="notification is-info">
+    Form data is preloading
+  </div>
+  <div *ngIf="state === 'error'" class="notification is-danger">
+    Form tried and failed to save to Firestore
+  </div> -->
+  <!-- </div> -->
+  <form name="userProfile" [formGroup]="profileForm" appFireForm [appFireFormPath]="'users/' +  user.uid"
+    (stateChange)="onChangeState($event)">
+    <fieldset>
+      <legend>Profile</legend>
+
+      <div class="input">
+        <label for="firstName">Your Name</label>
+
+        <div class="fixed wrapper block">
+          <input type="text" name="firstName" id="firstName" formControlName="firstName"
+            placeholder="Type something...">
+        </div>
+      </div>
+
+      <div class="input">
+        <label for="lastName">Your last name</label>
+
+        <div class="fixed wrapper block">
+          <input type="text" name="lastName" id="lastName" formControlName="lastName" placeholder="Type something...">
+        </div>
+      </div>
+
+      <div class="input">
+        <label for="displayName">Display name</label>
+
+        <div class="fixed wrapper block">
+          <input type="text" name="displayName" id="displayName" formControlName="displayName"
+            placeholder="Type something...">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
