@@ -5,9 +5,11 @@
 export const environment = {
   production: false,
   firebase: {
+      host: 'localhost:8080',
+      ssl: false,
       apiKey: 'AIzaSyC_3PuMKjQ5vajLi6S7foK1iA3py_9heCQ',
       authDomain: 'spx-salamander.firebaseapp.com',
-      databaseURL: 'https://spx-salamander.firebaseio.com',
+      databaseURL: 'localhost:8080',
       projectId: 'spx-salamander',
       storageBucket: 'spx-salamander.appspot.com',
       messagingSenderId: '277419815440',
