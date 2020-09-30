@@ -22,7 +22,12 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      displayName: ['']
+      displayName: [''],
+      birthDate: ['', Validators.required],
+      hiringDate: ['', Validators.required],
+      livingAddress: [''],
+      workCity: [''],
+      jobTitle: ['']
     });
   }
 

@@ -20,31 +20,51 @@
     <fieldset>
       <legend>Profile</legend>
 
-      <div class="input">
-        <label for="firstName">Your Name</label>
 
-        <div class="fixed wrapper block">
-          <input type="text" name="firstName" id="firstName" formControlName="firstName"
-            placeholder="Type something...">
-        </div>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Your first</mat-label>
+        <input matInput type="text" name="firstName" id="firstName" formControlName="firstName">
+      </mat-form-field>
 
-      <div class="input">
-        <label for="lastName">Your last name</label>
+      <mat-form-field appearance="fill">
+        <mat-label>Your last name</mat-label>
+        <input matInput type="text" name="lastName" id="lastName" formControlName="lastName">
+      </mat-form-field>
 
-        <div class="fixed wrapper block">
-          <input type="text" name="lastName" id="lastName" formControlName="lastName" placeholder="Type something...">
-        </div>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Your display name</mat-label>
+        <input matInput type="text" name="displayName" id="displayName" formControlName="displayName">
+      </mat-form-field>
 
-      <div class="input">
-        <label for="displayName">Display name</label>
+      <mat-form-field appearance="fill">
+        <mat-label>BirthDate</mat-label>
+        <input matInput [matDatepicker]="picker" id="birthDate" formControlName="birthDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-        <div class="fixed wrapper block">
-          <input type="text" name="displayName" id="displayName" formControlName="displayName"
-            placeholder="Type something...">
-        </div>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Living address</mat-label>
+        <input matInput type="text" name="livingAddress" id="livingAddress" formControlName="livingAddress">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Hiring date</mat-label>
+        <input matInput [matDatepicker]="picker2" id="hiringDate" formControlName="hiringDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Work city</mat-label>
+        <input matInput type="text" name="workCity" id="workCity" formControlName="workCity">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Job Title</mat-label>
+        <input matInput type="text" name="jobTitle" id="jobTitle" formControlName="jobTitle">
+      </mat-form-field>
+
     </fieldset>
   </form>
 </div>

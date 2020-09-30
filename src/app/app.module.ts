@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { CalendarModule, DateAdapter as CalendarDateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FireFormDirective } from './directives/fire-form/fire-form.directive';
 
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -37,10 +38,11 @@ import { FireFormDirective } from './directives/fire-form/fire-form.directive';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule.forRoot({
-      provide: DateAdapter,
+      provide: CalendarDateAdapter,
       useFactory: adapterFactory,
     }),
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
