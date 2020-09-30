@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {AngularFireModule} from '@angular/fire';
+import { AngularFireModule } from '@angular/fire';
+import { SETTINGS } from '@angular/fire/firestore';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter as CalendarDateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -28,7 +30,7 @@ import { MaterialModule } from './material/material.module';
     TimesheetComponent,
     LoginComponent,
     ProfileComponent,
-    FireFormDirective
+    FireFormDirective,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +44,19 @@ import { MaterialModule } from './material/material.module';
       useFactory: adapterFactory,
     }),
     AngularFireModule.initializeApp(environment.firebase),
-    MaterialModule,
+    MaterialModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: SETTINGS,
+      useValue: environment.production
+        ? undefined
+        : {
+            host: 'localhost:8080',
+            ssl: false,
+          },
+    }
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
