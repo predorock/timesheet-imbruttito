@@ -12,7 +12,7 @@ import { FirestoreService } from './firestore.service';
 })
 export class UserService extends AbstractFireService<IAppUser> {
 
-  protected readonly path = 'user';
+  protected readonly path = 'users';
 
   constructor(
     fss: FirestoreService

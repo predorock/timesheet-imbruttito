@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounce } from 'rxjs/operators';
+import { mergeMap, take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-
   profileForm: FormGroup;
   state: string;
 
   constructor(
     private fb: FormBuilder,
-    public auth: AuthService
-  ) { }
+    public auth: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
       hiringDate: ['', Validators.required],
       livingAddress: [''],
       workCity: [''],
-      jobTitle: ['']
+      jobTitle: [''],
     });
   }
 
@@ -36,4 +37,18 @@ export class ProfileComponent implements OnInit {
     this.state = state;
   }
 
+  onFormSubmit(form: FormGroup): void {
+    if (form.status === 'INVALID') {
+      return;
+    }
+    this.auth.user$
+      .pipe(
+        take(1),
+        tap(u => console.log(u)),
+        mergeMap(({ uid }) => this.userService.update$(uid, form.value))
+      )
+      .subscribe((ev) => {
+        //console.log(ev);
+      });
+  }
 }

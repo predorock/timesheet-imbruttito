@@ -1,70 +1,70 @@
 <div class="profile-container" *ngIf="(auth.user$) | async as user">
 
-  <div *ngIf="state === 'synced'" class="notification is-success">
-    Form is synced with Firestore
-  </div>
 
-  <div *ngIf="state === 'modified'" class="notification is-warning">
-    Form has unsaved changes
-  </div>
-  <!-- Getting an ERROR Error: ExpressionChangedAfterItHasBeenCheckedError -->
-  <!-- <div *ngIf="state === 'loading'" class="notification is-info">
-    Form data is preloading
-  </div>
-  <div *ngIf="state === 'error'" class="notification is-danger">
-    Form tried and failed to save to Firestore
-  </div> -->
-  <!-- </div> -->
   <form name="userProfile" [formGroup]="profileForm" appFireForm [appFireFormPath]="'users/' +  user.uid"
-    (stateChange)="onChangeState($event)">
+    (stateChange)="onChangeState($event)" (ngSubmit)="onFormSubmit(profileForm)">
     <fieldset>
-      <legend>Profile</legend>
+      <legend>
+        <div *ngIf="state === 'synced'">
+          Profile is synced with Firestore
+        </div>
+        <div *ngIf="state === 'modified'">
+          Profile has unsaved changes
+        </div>
+        <div *ngIf="state === 'loading'">
+          Profile data is preloading
+        </div>
+        <div *ngIf="state === 'error'">
+          Profile tried and failed to save to Firestore
+        </div>
+      </legend>
+      <div class="user-profile-form-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Your first name</mat-label>
+          <input matInput type="text" name="firstName" id="firstName" formControlName="firstName">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Your last name</mat-label>
+          <input matInput type="text" name="lastName" id="lastName" formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Your display name</mat-label>
+          <input matInput type="text" name="displayName" id="displayName" formControlName="displayName">
+        </mat-form-field>
 
 
-      <mat-form-field appearance="fill">
-        <mat-label>Your first</mat-label>
-        <input matInput type="text" name="firstName" id="firstName" formControlName="firstName">
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>BirthDate</mat-label>
+          <input matInput [matDatepicker]="picker" id="birthDate" formControlName="birthDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Your last name</mat-label>
-        <input matInput type="text" name="lastName" id="lastName" formControlName="lastName">
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Living address</mat-label>
+          <input matInput type="text" name="livingAddress" id="livingAddress" formControlName="livingAddress">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Your display name</mat-label>
-        <input matInput type="text" name="displayName" id="displayName" formControlName="displayName">
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Hiring date</mat-label>
+          <input matInput [matDatepicker]="picker2" id="hiringDate" formControlName="hiringDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>BirthDate</mat-label>
-        <input matInput [matDatepicker]="picker" id="birthDate" formControlName="birthDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Work city</mat-label>
+          <input matInput type="text" name="workCity" id="workCity" formControlName="workCity">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Living address</mat-label>
-        <input matInput type="text" name="livingAddress" id="livingAddress" formControlName="livingAddress">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Hiring date</mat-label>
-        <input matInput [matDatepicker]="picker2" id="hiringDate" formControlName="hiringDate">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Work city</mat-label>
-        <input matInput type="text" name="workCity" id="workCity" formControlName="workCity">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Job Title</mat-label>
-        <input matInput type="text" name="jobTitle" id="jobTitle" formControlName="jobTitle">
-      </mat-form-field>
-
+        <mat-form-field appearance="fill">
+          <mat-label>Job Title</mat-label>
+          <input matInput type="text" name="jobTitle" id="jobTitle" formControlName="jobTitle">
+        </mat-form-field>
+      </div>
+      <button type="submit" class="block">Save Profile</button>
     </fieldset>
   </form>
 </div>

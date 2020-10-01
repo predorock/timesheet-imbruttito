@@ -1,0 +1,8 @@
+.user-profile-form-container {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 80px auto 80px;
+  column-gap: 10px;
+  row-gap: 15px;
+  margin: auto;
+}
