@@ -1,5 +1,5 @@
 <header>
-  <div class="logo" *ngIf="(authService.user$ | async) as user">
+  <div class="logo" *ngIf="(authService.user$ | async) as user" routerLink="">
     <img [src]="user.photoURL"/>
     <div class="logo-text">Welcome back <span class="logo-text-name">{{user.displayName}}</span></div>
   </div>

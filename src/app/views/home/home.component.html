@@ -2,7 +2,7 @@
   <h2>Welcome to project salamander</h2>
   <p>A super fancy timesheet manager for your time at work</p>
   <div *ngIf="isLoggedIn$ | async">
-    <a class="block">+ Add a new entry</a>
+    <a class="block" routerLink="work-log">+ Add a new entry</a>
     <a class="accent block" routerLink="timesheet">View Calendar</a>
   </div>
   <app-login *ngIf="!(isLoggedIn$ | async)"></app-login>

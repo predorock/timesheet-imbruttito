@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FireFormDirective } from './directives/fire-form/fire-form.directive';
 
 import { MaterialModule } from './material/material.module';
+import { WorkLogComponent } from './components/work-log/work-log.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MaterialModule } from './material/material.module';
     LoginComponent,
     ProfileComponent,
     FireFormDirective,
+    WorkLogComponent,
   ],
   imports: [
     BrowserModule,

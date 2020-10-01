@@ -1,0 +1,32 @@
+<div class="work-log-container">
+  <form name="workLog" [formGroup]="workLogForm" appFireForm [appFireFormPath]="'work-logs'"
+    (stateChange)="onChangeState($event)" (ngSubmit)="onFormSubmit(workLogForm)">
+    <fieldset>
+      <legend>
+        <div *ngIf="state === 'synced'">
+          Work Log is synced with Firestore
+        </div>
+        <div *ngIf="state === 'modified'">
+          Work Log has unsaved changes
+        </div>
+        <div *ngIf="state === 'loading'">
+          Work Log data is preloading
+        </div>
+        <div *ngIf="state === 'error'">
+          Work Log tried and failed to save to Firestore
+        </div>
+      </legend>
+      <div class="user-profile-form-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Type of entry</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let entryType of entries" [value]="entryType">
+              {{entryType.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button type="submit" class="block">Save Profile</button>
+    </fieldset>
+  </form>
+</div>

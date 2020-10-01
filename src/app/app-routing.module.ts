@@ -4,6 +4,7 @@ import { HomeComponent } from './views/home/home.component';
 import { TimesheetComponent } from './views/timesheet/timesheet.component';
 import { DashboardComponent } from './views/layout/dashboard/dashboard.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { WorkLogComponent } from './components/work-log/work-log.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent
+      },
+      {
+        path: 'work-log',
+        component: WorkLogComponent
       }
     ]
   },

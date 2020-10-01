@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IAppUser } from '../model/user.model';
+import { IWorkLog } from '../model/work-log.model';
 import { AbstractFireService } from './abstract-fire.service';
 import { FirestoreService } from './firestore.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends AbstractFireService<IAppUser> {
+export class WorkLogService extends AbstractFireService<IWorkLog> {
 
-  protected readonly path = 'users';
+  protected readonly path = 'work-logs';
 
   constructor(
     fss: FirestoreService
