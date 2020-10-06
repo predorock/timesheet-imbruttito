@@ -26,6 +26,7 @@
     "angular-calendar": "^0.28.16",
     "date-fns": "^2.16.1",
     "firebase": "^7.13.1",
+    "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

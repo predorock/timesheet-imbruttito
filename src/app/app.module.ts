@@ -4,8 +4,12 @@ import { AngularFireModule } from '@angular/fire';
 import { SETTINGS } from '@angular/fire/firestore';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter as CalendarDateAdapter } from 'angular-calendar';
+import {
+  CalendarModule,
+  DateAdapter as CalendarDateAdapter,
+} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './views/layout/dashboard/dashboard.component';
@@ -46,7 +50,8 @@ import { WorkLogComponent } from './components/work-log/work-log.component';
       useFactory: adapterFactory,
     }),
     AngularFireModule.initializeApp(environment.firebase),
-    MaterialModule
+    MaterialModule,
+    NgxMaterialTimepickerModule.setLocale('it-IT')
   ],
   providers: [
     {
@@ -57,7 +62,7 @@ import { WorkLogComponent } from './components/work-log/work-log.component';
             host: 'localhost:8080',
             ssl: false,
           },
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })

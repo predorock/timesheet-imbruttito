@@ -1,32 +1,66 @@
 <div class="work-log-container">
-  <form name="workLog" [formGroup]="workLogForm" appFireForm [appFireFormPath]="'work-logs'"
-    (stateChange)="onChangeState($event)" (ngSubmit)="onFormSubmit(workLogForm)">
+  <form name="workLog" [formGroup]="workLogForm" (ngSubmit)="onFormSubmit(workLogForm)">
     <fieldset>
       <legend>
-        <div *ngIf="state === 'synced'">
-          Work Log is synced with Firestore
-        </div>
-        <div *ngIf="state === 'modified'">
-          Work Log has unsaved changes
-        </div>
-        <div *ngIf="state === 'loading'">
-          Work Log data is preloading
-        </div>
-        <div *ngIf="state === 'error'">
-          Work Log tried and failed to save to Firestore
-        </div>
+        Work log
       </legend>
-      <div class="user-profile-form-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Type of entry</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let entryType of entries" [value]="entryType">
-              {{entryType.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="work-log-form-container">
+        <div class="identification-section">
+          <mat-form-field appearance="fill">
+            <mat-label>Type of entry</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let entryType of entries" [value]="entryType">
+                {{entryType.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Event</mat-label>
+            <mat-select formControlName="event" [disabled]="!workLogForm.controls.type.value">
+              <mat-option *ngFor="let event of events" [value]="event">
+                {{event.eventName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Order</mat-label>
+            <mat-select formControlName="order"
+              [disabled]="!workLogForm.controls.event.value || !workLogForm.controls.type.value.enableOrder">
+              <mat-option *ngFor="let order of orders" [value]="order">
+                {{order.orderCode}} - {{order.orderName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="time-section">
+          <mat-form-field appearance="fill">
+            <mat-label>WorkDate</mat-label>
+            <input matInput [matDatepicker]="workDateDatepicker" id="workDate" formControlName="workDate">
+            <mat-datepicker-toggle matSuffix [for]="workDateDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #workDateDatepicker></mat-datepicker>
+          </mat-form-field>
+
+          <div class="work-time-container">
+            <mat-label>Start Time</mat-label>
+            <ngx-timepicker-field formControlName="startTime" [format]="24"></ngx-timepicker-field>
+          </div>
+          <div class="work-time-container">
+            <mat-label>End Time</mat-label>
+            <ngx-timepicker-field formControlName="endTime" [format]="24"></ngx-timepicker-field>
+          </div>
+
+        </div>
+        <div class="description-section">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput type="text" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
       </div>
-      <button type="submit" class="block">Save Profile</button>
+      <button type="submit" class="block">Save Work Log</button>
     </fieldset>
   </form>
 </div>

@@ -27,6 +27,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
   private _state: 'loading' | 'synced' | 'modified' | 'error';
 
   @Output() stateChange = new EventEmitter<string>();
+  @Output() docCreated = new EventEmitter<string>();
   @Output() formError = new EventEmitter<string>();
 
   // Firestore Document
@@ -91,7 +92,9 @@ export class FireFormDirective implements OnInit, OnDestroy {
   // Determines if path is a collection or document
   getDocRef(path: string): any {
     if (path.split('/').length % 2) {
-      return this.afs.doc(`${path}/${this.afs.createId()}`);
+      const ref = this.afs.doc(`${path}/${this.afs.createId()}`);
+      this.docCreated.emit(ref.ref.id);
+      return ref;
     } else {
       return this.afs.doc(path);
     }
