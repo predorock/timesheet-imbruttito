@@ -55,7 +55,7 @@ export class AuthService {
 
     const userRef: AngularFirestoreDocument<Partial<IAppUser>> = this.db.doc(`users/${uid}`);
     const data = {
-      uid,
+      id: uid,
       email,
       displayName,
       photoURL

@@ -84,7 +84,7 @@ export class FirestoreService {
   /// **************
 
   /// Firebase Server Timestamp
-  get timestamp() {
+  get timestamp(): firebase.firestore.FieldValue {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 

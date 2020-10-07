@@ -8,7 +8,8 @@
         <div class="identification-section">
           <mat-form-field appearance="fill">
             <mat-label>Type of entry</mat-label>
-            <mat-select formControlName="type">
+            <mat-select formControlName="type"
+                        [compareWith]="idCompareFn">
               <mat-option *ngFor="let entryType of entries" [value]="entryType">
                 {{entryType.name}}
               </mat-option>
@@ -17,7 +18,9 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Event</mat-label>
-            <mat-select formControlName="event" [disabled]="!workLogForm.controls.type.value">
+            <mat-select formControlName="event"
+                        [compareWith]="idCompareFn"
+                        [disabled]="!workLogForm.controls.type.value">
               <mat-option *ngFor="let event of events" [value]="event">
                 {{event.eventName}}
               </mat-option>
@@ -27,7 +30,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Order</mat-label>
             <mat-select formControlName="order"
-              [disabled]="!workLogForm.controls.event.value || !workLogForm.controls.type.value.enableOrder">
+                        [compareWith]="idCompareFn"
+                        [disabled]="!workLogForm.controls.event.value || !workLogForm.controls.type.value.enableOrder">
               <mat-option *ngFor="let order of orders" [value]="order">
                 {{order.orderCode}} - {{order.orderName}}
               </mat-option>

@@ -1,7 +1,8 @@
 
 import * as firebase from 'firebase';
+import {IFireDocument} from './fire-document.mode';
 
-export interface IWorkLog {
+export interface IWorkLog extends IFireDocument {
   type: any;
   event: any;
   order: any;

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { WorkLogService } from '../../services/work-log.service';
+import { UserRepository } from 'src/app/model/model-repository/user-repository.service';
+import { WorkLogRepository } from '../../model/model-repository/work-log-repository.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {filter, map, mergeMap} from 'rxjs/operators';
+import {IWorkLog} from '../../model/work-log.model';
+import {IAppUser} from '../../model/user.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-work-log',
@@ -11,8 +16,6 @@ import { WorkLogService } from '../../services/work-log.service';
 })
 export class WorkLogComponent implements OnInit {
   workLogForm: FormGroup;
-
-  state: string;
 
   docId: string;
 
@@ -111,19 +114,20 @@ export class WorkLogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public auth: AuthService,
-    private workLogService: WorkLogService
+    private workLogRepository: WorkLogRepository,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.workLogForm = this.fb.group({
-      type: ['', Validators.required],
-      event: ['', Validators.required],
-      order: ['', Validators.required],
+      type:        ['', Validators.required],
+      event:       ['', Validators.required],
+      order:       ['', Validators.required],
       description: ['', Validators.required],
-      workDate: [new Date(), Validators.required],
-      startTime: ['', Validators.required],
-      endTime: ['', Validators.required],
-      logger: ['', Validators.required],
+      workDate:  [new Date(), Validators.required],
+      startTime: ['9:00', Validators.required],
+      endTime:   ['18:00', Validators.required],
     });
 
     this.workLogForm.controls.type.valueChanges.subscribe((v) => {
@@ -132,25 +136,48 @@ export class WorkLogComponent implements OnInit {
       }
     });
 
-  }
+    this.route.params.pipe(
+      map((params: Params) => params.id),
+      filter(id => !!id),
+      mergeMap(id => this.workLogRepository.one$(id))
+    ).subscribe((log: IWorkLog) => {
+      this.docId = log.id;
+      this.workLogForm.patchValue(log);
+    });
 
-  onChangeState(state: string): void {
-    console.log(state);
-    this.state = state;
   }
 
   onFormSubmit(form: FormGroup): void {
-    console.log(form.value);
     if (form.status === 'INVALID') {
       return;
     }
-    console.log(this.workLogForm.value);
-    this.workLogService.create$(this.workLogForm.value);
+    if (this.docId) {
+      this.updateLog(this.docId, form.value).subscribe(log => {
+        console.log('updated', log);
+      });
+    } else {
+      this.createLog(form.value).subscribe((log: IWorkLog) => {
+        this.router.navigate(['work-log', log.id]);
+      });
+    }
   }
 
-  onDocCreated(docId: string): void {
-    this.docId = docId;
-    this.workLogForm.controls.logger.setValue(docId);
+  idCompareFn(e1: {id: string}, e2: {id: string}): boolean  {
+    return e1.id === e2.id;
+  }
+
+  private createLog(data: Partial<IWorkLog>): Observable<IWorkLog> {
+    return this.auth.user$.pipe(
+      map((user: IAppUser) => ({...data, logger: user.id})),
+      mergeMap((log: Partial<IWorkLog>) => this.workLogRepository.create$(log))
+    );
+  }
+
+  private updateLog(logId: string, data: IWorkLog): Observable<IWorkLog> {
+    return this.auth.user$.pipe(
+      map((user: IAppUser) => ({...data, logger: user.id})),
+      mergeMap((log: Partial<IWorkLog>) => this.workLogRepository.update$(logId, log))
+    );
   }
 
 }

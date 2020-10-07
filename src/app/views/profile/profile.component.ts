@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mergeMap, take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserRepository } from 'src/app/model/model-repository/user-repository.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public auth: AuthService,
-    private userService: UserService
+    private userService: UserRepository
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
       .pipe(
         take(1),
         tap(u => console.log(u)),
-        mergeMap(({ uid }) => this.userService.update$(uid, form.value))
+        mergeMap(({ id }) => this.userService.update$(id, form.value))
       )
       .subscribe((ev) => {
         //console.log(ev);
