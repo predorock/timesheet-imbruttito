@@ -1,10 +1,10 @@
-import { FirestoreService } from './firestore.service';
+import { FirestoreService } from '../../services/firestore.service';
 import { from, Observable } from 'rxjs';
 import { mergeMap, map, first, switchMap, tap } from 'rxjs/operators';
-import { wrapIntoObservable } from '../utils/wrapIntoObservable';
+import { wrapIntoObservable } from '../../utils/wrapIntoObservable';
 import { AngularFirestoreDocument, QueryFn } from '@angular/fire/firestore';
 
-export abstract class AbstractFireService<T extends object> {
+export abstract class FirestoreAbstractRepositoryService<T extends object> {
 
 
   protected readonly abstract path: Observable<string> | Promise<string> | string;

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IAppUser } from '../user.model';
-import { AbstractFireService } from '../../services/abstract-fire.service';
+import { FirestoreAbstractRepositoryService } from './firestore-abstract-repository.service';
 import { FirestoreService } from '../../services/firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserRepository extends AbstractFireService<IAppUser> {
+export class UserRepository extends FirestoreAbstractRepositoryService<IAppUser> {
 
   protected readonly path = 'users';
 

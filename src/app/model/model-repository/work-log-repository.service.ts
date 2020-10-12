@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IWorkLog } from '../work-log.model';
-import { AbstractFireService } from '../../services/abstract-fire.service';
+import { FirestoreAbstractRepositoryService } from './firestore-abstract-repository.service';
 import { FirestoreService } from '../../services/firestore.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkLogRepository extends AbstractFireService<IWorkLog> {
+export class WorkLogRepository extends FirestoreAbstractRepositoryService<IWorkLog> {
 
   protected readonly path = 'work-logs';
 

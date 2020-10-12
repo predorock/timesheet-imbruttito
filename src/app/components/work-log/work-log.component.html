@@ -42,9 +42,9 @@
         <div class="time-section">
           <mat-form-field appearance="fill">
             <mat-label>WorkDate</mat-label>
-            <input matInput [matDatepicker]="workDateDatepicker" id="workDate" formControlName="workDate">
+            <input matInput (dateChange)="addDate($event)" [matDatepicker]="workDateDatepicker" formControlName="workDate" id="workDate">
             <mat-datepicker-toggle matSuffix [for]="workDateDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #workDateDatepicker></mat-datepicker>
+            <mat-datepicker #workDateDatepicker ></mat-datepicker>
           </mat-form-field>
 
           <div class="work-time-container">

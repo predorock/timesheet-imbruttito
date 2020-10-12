@@ -8,6 +8,9 @@ import {filter, map, mergeMap} from 'rxjs/operators';
 import {IWorkLog} from '../../model/work-log.model';
 import {IAppUser} from '../../model/user.model';
 import {Observable} from 'rxjs';
+import * as firebase from 'firebase';
+import {DateAdapter} from '@angular/material/core';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-work-log',
@@ -116,7 +119,8 @@ export class WorkLogComponent implements OnInit {
     public auth: AuthService,
     private workLogRepository: WorkLogRepository,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dateAdapter: DateAdapter<Date>
   ) {}
 
   ngOnInit(): void {
@@ -142,6 +146,11 @@ export class WorkLogComponent implements OnInit {
       mergeMap(id => this.workLogRepository.one$(id))
     ).subscribe((log: IWorkLog) => {
       this.docId = log.id;
+      console.log('logg', log);
+      log = {
+        ...log,
+        workDate: (log.workDate as unknown as firebase.firestore.Timestamp).toDate()
+      };
       this.workLogForm.patchValue(log);
     });
 
@@ -164,6 +173,13 @@ export class WorkLogComponent implements OnInit {
 
   idCompareFn(e1: {id: string}, e2: {id: string}): boolean  {
     return e1.id === e2.id;
+  }
+
+  addDate(ev: MatDatepickerInputEvent<Date>): void{
+    const workDate = firebase.firestore.Timestamp.fromDate(ev.value);
+    this.workLogForm.patchValue({
+      workDate
+    });
   }
 
   private createLog(data: Partial<IWorkLog>): Observable<IWorkLog> {
