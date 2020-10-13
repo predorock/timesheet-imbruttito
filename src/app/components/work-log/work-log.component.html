@@ -10,7 +10,7 @@
             <mat-label>Type of entry</mat-label>
             <mat-select formControlName="type"
                         [compareWith]="idCompareFn">
-              <mat-option *ngFor="let entryType of entries" [value]="entryType">
+              <mat-option *ngFor="let entryType of (entries$ | async)" [value]="entryType">
                 {{entryType.name}}
               </mat-option>
             </mat-select>
@@ -21,7 +21,7 @@
             <mat-select formControlName="event"
                         [compareWith]="idCompareFn"
                         [disabled]="!workLogForm.controls.type.value">
-              <mat-option *ngFor="let event of events" [value]="event">
+              <mat-option *ngFor="let event of (events$ | async)" [value]="event">
                 {{event.eventName}}
               </mat-option>
             </mat-select>
@@ -32,7 +32,7 @@
             <mat-select formControlName="order"
                         [compareWith]="idCompareFn"
                         [disabled]="!workLogForm.controls.event.value || !workLogForm.controls.type.value.enableOrder">
-              <mat-option *ngFor="let order of orders" [value]="order">
+              <mat-option *ngFor="let order of (orders$ | async)" [value]="order">
                 {{order.orderCode}} - {{order.orderName}}
               </mat-option>
             </mat-select>

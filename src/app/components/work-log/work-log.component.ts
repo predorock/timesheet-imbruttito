@@ -11,6 +11,12 @@ import {Observable} from 'rxjs';
 import * as firebase from 'firebase';
 import {DateAdapter} from '@angular/material/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {ILogEvent} from '../../model/event.model';
+import {ILogEntry} from '../../model/entry.model';
+import {ILogOrder} from '../../model/order.model';
+import {EntryRepositoryService} from '../../model/model-repository/entry-repository.service';
+import {EventRepositoryService} from '../../model/model-repository/event-repository.service';
+import {OrderRepositoryService} from '../../model/model-repository/order-repository.service';
 
 @Component({
   selector: 'app-work-log',
@@ -22,108 +28,27 @@ export class WorkLogComponent implements OnInit {
 
   docId: string;
 
-  entries = [
-    {
-      id: 0,
-      code: 'ordinary',
-      name: 'Lavoro su Commessa',
-      enableOrder: true,
-    },
-    {
-      id: 1,
-      code: 'medic',
-      name: 'Malattia',
-      enableOrder: false,
-    },
-    {
-      id: 2,
-      code: 'permssion',
-      name: 'Ferie / Permessi / Assenze',
-      enableOrder: false,
-    },
-  ];
-
-  events = [
-    {
-      id: 0,
-      eventCode: 'ordinary-covid',
-      eventName: 'Lav. Ord. SW EmergCovid',
-    },
-    {
-      id: 1,
-      eventCode: 'ordinary',
-      eventName: 'Lavoro Ordinario',
-    },
-    {
-      id: 2,
-      eventCode: 'extra-ordinary',
-      eventName: 'Lavoro Staordinario',
-    },
-    {
-      id: 3,
-      eventCode: 'travel-hours',
-      eventName: 'Ore viaggio',
-    },
-  ];
-
-  orders = [
-    {
-      id: 0,
-      orderCode: '15FBVIME',
-      orderName: 'Visita Medica Aziendale',
-    },
-    {
-      id: 1,
-      orderCode: '16RPFORM',
-      orderName: 'Formazione',
-    },
-    {
-      id: 2,
-      orderCode: '16SAFORM',
-      orderName: 'Formazione Sicurezza aziendale',
-    },
-    {
-      id: 3,
-      orderCode: '18FBTRAS',
-      orderName: 'Trasporto Pubblico',
-    },
-    {
-      id: 4,
-      orderCode: '19F25917',
-      orderName: 'UBISS - Omnichannel Mobile',
-    },
-    {
-      id: 5,
-      orderCode: '19F26317',
-      orderName: 'UBI - Sviluppo nuovo sito pubblico',
-    },
-    {
-      id: 6,
-      orderCode: '20H27262',
-      orderName: 'VF-LAVAZZA FOL Demand 1883-Modifica sezioni locali',
-    },
-    {
-      id: 7,
-      orderCode: '20F27405',
-      orderName: 'ISP - Dashboard forensi',
-    },
-    {
-      id: 8,
-      orderCode: '20W27488',
-      orderName: 'CNH - App Mobile Competence Center',
-    },
-  ];
+  entries$: Observable<ILogEntry[]>;
+  events$: Observable<ILogEvent[]>;
+  orders$: Observable<ILogOrder[]>;
 
   constructor(
     private fb: FormBuilder,
     public auth: AuthService,
+    private entriesRepository: EntryRepositoryService,
+    private eventsRepository: EventRepositoryService,
+    private orderRepository: OrderRepositoryService,
     private workLogRepository: WorkLogRepository,
     private route: ActivatedRoute,
     private router: Router,
-    private dateAdapter: DateAdapter<Date>
   ) {}
 
   ngOnInit(): void {
+
+    this.events$ = this.eventsRepository.query$();
+    this.entries$ = this.entriesRepository.query$();
+    this.orders$ = this.orderRepository.query$();
+
     this.workLogForm = this.fb.group({
       type:        ['', Validators.required],
       event:       ['', Validators.required],

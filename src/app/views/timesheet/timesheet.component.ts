@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarView } from 'angular-calendar';
+import {Component, OnInit} from '@angular/core';
+import {CalendarEvent, CalendarView} from 'angular-calendar';
+import {Observable} from 'rxjs';
+import {WorkLogRepository} from '../../model/model-repository/work-log-repository.service';
+import {AuthService} from '../../services/auth.service';
+import {map, mergeMap} from 'rxjs/operators';
+import {logToCalendarEvent} from '../../utils/log-to-calendar-event';
 
 @Component({
   selector: 'app-timesheet',
@@ -15,11 +20,36 @@ export class TimesheetComponent implements OnInit {
 
   viewDate: Date = new Date();
 
-  constructor() { }
+  events$: Observable<CalendarEvent[]>;
+
+  colors: any = {
+    red: {
+      primary: '#ad2121',
+      secondary: '#FAE3E3',
+    },
+    blue: {
+      primary: '#1e90ff',
+      secondary: '#D1E8FF',
+    },
+    yellow: {
+      primary: '#e3bc08',
+      secondary: '#FDF1BA',
+    },
+  };
+
+  constructor(
+    private workLogRepo: WorkLogRepository,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
 
-    console.log(this.view);
+    this.events$ = this.auth.user$.pipe(
+      map(({id}) => (id)),
+      mergeMap(userId => this.workLogRepo.query$(ref => ref.where('logger', '==', userId)).pipe(
+        map((logs) => logs.map(l => logToCalendarEvent(l)))
+      ))
+    );
   }
 
 }
