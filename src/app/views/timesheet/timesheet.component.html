@@ -52,10 +52,14 @@
     <small *appNgVar="(day.events | workedHours); let hours" style="margin: 5px;">
       <span [ngClass]="{
         'hours-error': hours === 0,
-        'hours-warn': hours > 0 && hours !== 8,
-        'hours-success': hours === 8
+        'hours-warn': hours > 0 && hours < 8,
+        'hours-success': hours === 8,
+        'hours-pro': hours > 8
       }">
-        You have worked {{ hours }} hours on this day
+        <span *ngIf="hours === 0">Va a laurà barbù</span>
+        <span *ngIf="hours > 0 && hours < 8">Ha lavorato {{hours}} ore. Cos'è oggi fai mezza giornata ?</span>
+        <span *ngIf="hours === 8">{{hours}} ore. Taaacc!!</span>
+        <span *ngIf="hours > 8">{{hours}} ore. Menghia il vero king del fatturato!</span>
       </span>
     </small>
   </ng-template>

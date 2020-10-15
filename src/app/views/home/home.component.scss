@@ -1,5 +1,12 @@
 .home-container {
-  width: 100%;
-  position: relative;
-  min-height: 150px;
+  .title-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .subtitle {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
 }
