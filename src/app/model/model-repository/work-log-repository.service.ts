@@ -9,7 +9,7 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export class WorkLogRepository extends FirestoreAbstractRepositoryService<IWorkLog> {
 
-  protected readonly path = 'work-logs';
+  readonly path = 'work-logs';
 
   constructor(
     fss: FirestoreService

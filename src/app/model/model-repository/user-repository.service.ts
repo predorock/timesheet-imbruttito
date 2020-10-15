@@ -8,7 +8,7 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export class UserRepository extends FirestoreAbstractRepositoryService<IAppUser> {
 
-  protected readonly path = 'users';
+  readonly path = 'users';
 
   constructor(
     fss: FirestoreService

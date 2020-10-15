@@ -42,7 +42,7 @@
         <div class="time-section">
           <mat-form-field appearance="fill">
             <mat-label>WorkDate</mat-label>
-            <input matInput (dateChange)="addDate($event)" [matDatepicker]="workDateDatepicker" formControlName="workDate" id="workDate">
+            <input appFirebaseDatepickerAdapter matInput (dateChange)="addDate($event)" [matDatepicker]="workDateDatepicker" formControlName="workDate" id="workDate">
             <mat-datepicker-toggle matSuffix [for]="workDateDatepicker"></mat-datepicker-toggle>
             <mat-datepicker #workDateDatepicker ></mat-datepicker>
           </mat-form-field>

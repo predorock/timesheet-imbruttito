@@ -71,11 +71,6 @@ export class WorkLogComponent implements OnInit {
       mergeMap(id => this.workLogRepository.one$(id))
     ).subscribe((log: IWorkLog) => {
       this.docId = log.id;
-      console.log('logg', log);
-      log = {
-        ...log,
-        workDate: (log.workDate as unknown as firebase.firestore.Timestamp).toDate()
-      };
       this.workLogForm.patchValue(log);
     });
 

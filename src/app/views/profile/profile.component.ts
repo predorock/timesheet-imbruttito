@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onChangeState(state: string): void {
-    console.log(state);
     this.state = state;
   }
 
@@ -50,5 +49,9 @@ export class ProfileComponent implements OnInit {
       .subscribe((ev) => {
         //console.log(ev);
       });
+  }
+
+  dateInput(ev): void {
+    console.log('date input', ev);
   }
 }

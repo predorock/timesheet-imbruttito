@@ -1,7 +1,7 @@
 <div class="profile-container" *ngIf="(auth.user$) | async as user">
 
 
-  <form name="userProfile" [formGroup]="profileForm" appFireForm [appFireFormPath]="'users/' +  user.uid"
+  <form name="userProfile" [formGroup]="profileForm" appFireForm [appFireFormPath]="'users/' +  user.id"
     (stateChange)="onChangeState($event)" (ngSubmit)="onFormSubmit(profileForm)">
     <fieldset>
       <legend>
@@ -37,7 +37,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>BirthDate</mat-label>
-          <input matInput [matDatepicker]="picker" id="birthDate" formControlName="birthDate">
+          <input appFirebaseDatepickerAdapter matInput [matDatepicker]="picker" id="birthDate" formControlName="birthDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -49,7 +49,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Hiring date</mat-label>
-          <input matInput [matDatepicker]="picker2" id="hiringDate" formControlName="hiringDate">
+          <input appFirebaseDatepickerAdapter matInput [matDatepicker]="picker2" id="hiringDate" formControlName="hiringDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
