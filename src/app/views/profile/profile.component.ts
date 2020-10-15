@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
         mergeMap(({ id }) => this.userService.update$(id, form.value))
       )
       .subscribe((ev) => {
-        //console.log(ev);
+        // console.log(ev);
       });
   }
 

@@ -133,7 +133,7 @@ export class FirestoreService {
     });
   }
 
-  createId (): string {
+  createId(): string {
     return this.afs.createId();
   }
 

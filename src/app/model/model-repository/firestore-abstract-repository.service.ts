@@ -63,7 +63,6 @@ export abstract class FirestoreAbstractRepositoryService<T extends object> imple
 
   delete$(id: string): Observable<void> {
     return this.docPath$(id).pipe(
-      tap((doc) => console.log(doc)),
       switchMap(docPath => from(this.db.delete<T>(docPath)))
     );
   }

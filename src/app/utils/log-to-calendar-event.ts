@@ -10,6 +10,7 @@ export function logToCalendarEvent(log: IWorkLog): CalendarEvent {
     title: eventName(log),
     start: eventDate(d, startTime),
     end: eventDate(d, endTime),
+    meta: log
   };
 }
 
