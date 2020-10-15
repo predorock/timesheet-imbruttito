@@ -55,7 +55,11 @@
             <mat-label>End Time</mat-label>
             <ngx-timepicker-field formControlName="endTime" [format]="24"></ngx-timepicker-field>
           </div>
-
+        </div>
+        <div class="time-section time-errors">
+          <mat-error *ngIf="workLogForm.invalid && workLogForm.hasError('invalidWorkHours')">
+            Invalid time interval
+          </mat-error>
         </div>
         <div class="description-section">
           <mat-form-field appearance="fill">

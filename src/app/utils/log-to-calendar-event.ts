@@ -8,8 +8,8 @@ export function logToCalendarEvent(log: IWorkLog): CalendarEvent {
   return {
     id,
     title: eventName(log),
-    start: eventDate(d, startTime),
-    end: eventDate(d, endTime),
+    start: eventDate(startTime, d),
+    end: eventDate(endTime, d),
     meta: log
   };
 }
@@ -18,8 +18,8 @@ export function eventName(log: IWorkLog): string {
   return `${log.order.orderName} - ${log.description}`;
 }
 
-export function eventDate(date: Date, time: string): Date {
-  const d = new Date(date);
+export function eventDate(time: string, date?: Date): Date {
+  const d = !!date ? new Date(date) : new Date();
   const parts = time.split(':').map(s => parseInt(s, 10));
   d.setHours(parts[0]);
   d.setMinutes(parts[1]);

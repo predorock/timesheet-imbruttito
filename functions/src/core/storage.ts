@@ -1,6 +1,6 @@
 import * as utils from './utils';
 
-export const deleteFromPath = (ref) => {
+export const deleteFromPath = (ref: any) => {
   const path = ref.get('path');
   return utils.deleteFile(path);
 }

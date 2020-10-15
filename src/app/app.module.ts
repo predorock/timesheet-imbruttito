@@ -26,6 +26,8 @@ import { FireFormDirective } from './directives/fire-form/fire-form.directive';
 import { MaterialModule } from './material/material.module';
 import { WorkLogComponent } from './components/work-log/work-log.component';
 import { FirebaseDatepickerAdapterDirective } from './directives/firebase-datepicker-adapter/firebase-datepicker-adapter.directive';
+import { WorkedHoursPipe } from './pipes/worked-hours.pipe';
+import { NgVarDirective } from './directives/ng-var/ng-var.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { FirebaseDatepickerAdapterDirective } from './directives/firebase-datepi
     FireFormDirective,
     WorkLogComponent,
     FirebaseDatepickerAdapterDirective,
+    WorkedHoursPipe,
+    NgVarDirective
   ],
   imports: [
     BrowserModule,

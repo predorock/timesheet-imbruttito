@@ -18,6 +18,7 @@
       [refresh]="refresh"
       [activeDayIsOpen]="activeDayIsOpen"
       (dayClicked)="dayClicked($event.day)"
+      [cellTemplate]="customCellTemplate"
     >
     </mwl-calendar-month-view>
     <mwl-calendar-week-view
@@ -38,4 +39,24 @@
     </mwl-calendar-day-view>
 
   </div>
+
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+        {{ day.badgeTotal }}
+      </span>
+      <span class="cal-day-number">
+        {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+      </span>
+    </div>
+    <small *appNgVar="(day.events | workedHours); let hours" style="margin: 5px;">
+      <span [ngClass]="{
+        'hours-error': hours === 0,
+        'hours-warn': hours > 0 && hours !== 8,
+        'hours-success': hours === 8
+      }">
+        You have worked {{ hours }} hours on this day
+      </span>
+    </small>
+  </ng-template>
 </div>

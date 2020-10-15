@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserRepository } from 'src/app/model/model-repository/user-repository.service';
 import { WorkLogRepository } from '../../model/model-repository/work-log-repository.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {filter, map, mergeMap} from 'rxjs/operators';
@@ -9,7 +8,6 @@ import {IWorkLog} from '../../model/work-log.model';
 import {IAppUser} from '../../model/user.model';
 import {Observable} from 'rxjs';
 import * as firebase from 'firebase';
-import {DateAdapter} from '@angular/material/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {ILogEvent} from '../../model/event.model';
 import {ILogEntry} from '../../model/entry.model';
@@ -17,6 +15,8 @@ import {ILogOrder} from '../../model/order.model';
 import {EntryRepositoryService} from '../../model/model-repository/entry-repository.service';
 import {EventRepositoryService} from '../../model/model-repository/event-repository.service';
 import {OrderRepositoryService} from '../../model/model-repository/order-repository.service';
+
+import {workHoursValidator} from '../../utils/validators/work-hours.validator';
 
 @Component({
   selector: 'app-work-log',
@@ -57,7 +57,9 @@ export class WorkLogComponent implements OnInit {
       workDate:  [new Date(), Validators.required],
       startTime: ['9:00', Validators.required],
       endTime:   ['18:00', Validators.required],
-    });
+    }, {
+      validators: workHoursValidator('startTime', 'endTime')
+    } );
 
     this.workLogForm.controls.type.valueChanges.subscribe((v) => {
       if (!v.enabledOrder) {

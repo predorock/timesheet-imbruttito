@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "emulators:start": "firebase emulators:start --only firestore"
+    "preemulators:start": "npm run build --prefix functions",
+    "emulators:start": "firebase emulators:start --only firestore,functions --export-on-exit=./data --import=./data"
   },
   "private": true,
   "dependencies": {

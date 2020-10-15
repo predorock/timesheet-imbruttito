@@ -1,4 +1,6 @@
-export async function validateFirebaseIdTokenMiddleware(req, res, next) {
+import * as utils from './utils';
+
+export async function validateFirebaseIdTokenMiddleware(req: any, res: any, next: any) {
   console.log('[validateFirebaseIdTokenMiddleware] Check if request is authorized with Firebase ID token');
 
   if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&

@@ -15,4 +15,5 @@ export interface IWorkLog extends IFireDocument {
   description: string;
   // user id of the log
   logger: string;
+  workedHours?: number;
 }
