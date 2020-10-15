@@ -8,7 +8,7 @@ service cloud.firestore {
 
     match /work-logs/{log} {
       // Applies to writes to nonexistent documents
-      allow read, write: if true;//request.auth != null;
+      allow write: if true;//request.auth != null;
 
       // Applies to writes to existing documents
       allow update: if request.auth != null && resource.data.logger == request.auth.uid

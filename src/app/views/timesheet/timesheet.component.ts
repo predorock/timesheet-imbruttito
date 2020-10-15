@@ -94,6 +94,7 @@ export class TimesheetComponent implements OnInit {
       mergeMap((userId) =>
         this.workLogRepo
           .query$((ref) => ref.where('logger', '==', userId))
+          // .query$()
           .pipe(
             map((logs) => logs.map((l) => logToCalendarEvent(l))),
             map((logs) => logs.map((l) => ({ ...l, actions: this.actions })))
