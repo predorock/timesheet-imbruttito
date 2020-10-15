@@ -3,18 +3,19 @@ import { from, Observable } from 'rxjs';
 import { mergeMap, map, first, switchMap, tap } from 'rxjs/operators';
 import { wrapIntoObservable } from '../../utils/wrapIntoObservable';
 import { AngularFirestoreDocument, QueryFn } from '@angular/fire/firestore';
+import {IFirestoreRepository} from './firestore-repository.interface';
 
-export abstract class FirestoreAbstractRepositoryService<T extends object> {
+export abstract class FirestoreAbstractRepositoryService<T extends object> implements IFirestoreRepository<T> {
 
 
-  protected readonly abstract path: Observable<string> | Promise<string> | string;
+  readonly abstract path: Observable<string> | Promise<string> | string;
 
   constructor(
     private db: FirestoreService
   ) { }
 
   get colPath$(): Observable<string> {
-    return wrapIntoObservable(this.path);
+    return wrapIntoObservable<string>(this.path);
   }
 
   docPath$(id: string): Observable<string> {
