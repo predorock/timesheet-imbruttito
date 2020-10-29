@@ -7,4 +7,6 @@
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
- export {updateWorkHours} from './work-logs';
+export {updateWorkHours} from './work-logs';
+
+export {httpCloudFunctions} from './http';
