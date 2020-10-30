@@ -10,6 +10,12 @@ export function eventDate(time: string, date?: Date): Date {
 }
 
 
+export function workLogsHours(workLog: any): number {
+  const start = eventDate(workLog.startTime);
+  const end = eventDate(workLog.endTime);
+  return Math.abs(end.getTime() - start.getTime()) / 36e5;
+}
+
 
 export const updateWorkHours = utils.cloudFn().firestore
   .document('work-logs/{uid}')
@@ -28,10 +34,7 @@ export const updateWorkHours = utils.cloudFn().firestore
       return Promise.reject('Error getting data');
     }
 
-    const start = eventDate(newValue.startTime);
-    const end = eventDate(newValue.endTime);
-
-    const hours = Math.abs(end.getTime() - start.getTime()) / 36e5;
+    const hours = workLogsHours(newValue);
 
     // change.after.ref.set()
     return utils.db_ref('work-logs', id).update({
